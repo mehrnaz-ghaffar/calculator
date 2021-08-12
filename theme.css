@@ -1,7 +1,13 @@
 body{
     margin: 0;
     padding: 0;
-    background: sandybrown;
+    background: rgb(240, 207, 229);
+}
+
+#container{
+    width: 1000px;
+	height: 550px;
+    margin: 20px auto;
 }
 
 .calculator{

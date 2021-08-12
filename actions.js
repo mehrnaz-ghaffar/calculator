@@ -2,17 +2,18 @@ class calculator {
     constructor(previousElement  , currentElement){
         this.previousElement = previousElement
         this.currentElement = currentElement
-        this.clear()
+        clear()
     }
 }
 
-const numberButtons = document.querySelectorAll('[data-number]')
-const operationButtons = document.querySelectorAll('[data-operation]')
-const equalButton = document.querySelector('[data-equal]')
-const DeleteButton = document.querySelector('[data-delete]')
-const clearButton = document.querySelector('[data-clear]')
-const previousElement = document.querySelector('[data-previous]')
-const currentElement = document.querySelector('[data-current]')
+
+const numberButtons = document.getElementById("number").innerText
+const operationButtons = document.getElementById("operation").innerText
+const equalButton = document.getElementById("equal").innerText
+const DeleteButton = document.getElementById("delete").innerText
+const clearButton = document.getElementById("clear").innerText
+const previousElement = document.getElementById("previous").innerText
+const currentElement = document.getElementById("current").innerText
  
 const Calculator = new calculator(previousElement , currentElement)
 
@@ -34,6 +35,7 @@ function compute(){
     const prev = parseFloat(this.previousOperand)
     const cur = parseFloat(this.currentOperand)
     if( isNaN(prev) || isNaN(cur)) return
+
     switch(this.operation){
         case '+' :
             return result = prev + cur
@@ -59,22 +61,22 @@ function compute(){
 
 function selectOperation(operation){
     if( this.currentOperand === '') return
-    if(this.currentOperand !== ''){
-        this.compute()
+    if(this.previousOperand !== ''){
+        compute()
     }
     this.operation = operation
     this.previousOperand = this.currentOperand
     this.currentOperand = ''
 }
- console.log('helllooo')
+
 function appendNumber(number){
-    if (number ==='.' && this.currentOperand.includes('.')) return
-    this.currentOperand = this.currentOperand.toSring() + number.toSring()
+    if (number ==='.' && currentOperand.includes('.')) return
+    this.currentOperand = this.currentOperand.toLocaleString() + number.toLocaleString()
        
 }
 
-function getDisplay(number){
-    const numberString = number.toSring()
+function getDisplay (number){
+    const numberString = number.toLocaleString()
     const integerDigits = parseFloat(numberString.split('.')[0])
     const decimalDigits = numberString.split('.')[1]
     let integerDisplay
@@ -93,10 +95,9 @@ function getDisplay(number){
 }
 
 function display() {
-    this.currentElement.innerText = 
-        this.getDisplay(this.currentOperand)
+    this.currentElement.textContent = this.getDisplay(this.currentOperand)
     if (this.operation != null){
-        this.previousElement.innerText =
+        this.previousElement.textContent =
           `${this.getDisplay(this.previousOperand)} ${this.operation}`
     }
     else{
@@ -106,30 +107,36 @@ function display() {
 
 //////////// Listeners ///////////////
 clearButton.addEventListener('click' , button => {
-    Calculator.clear()
-    Calculator.display()
+    clear()
+    display()
 })
 
 DeleteButton.addEventListener('click' , button => {
-    Calculator.Delete()
-    Calculator.display()
+    Delete()
+    display()
 })
 
 equalButton.addEventListener('click' , button => {
-    Calculator.compute()
-    Calculator.display()
+    compute()
+    display()
 })
 
 operationButtons.forEach(button => {
     button.addEventListener('click' , () => {
-        Calculator.selectOperation(button.innerText)
-        Calculator.display()
+        selectOperation(button.innerText)
+        display()
     })
 })
 
 numberButtons.forEach(button => {
     button.addEventListener('click' , () => {
-        Calculator.appendNumber(button.innerText)
-        Calculator.display()
+        appendNumber(button.innerText)
+        display()
     })
 })
+
+/*
+const arr = ["sal" , "hi"]
+console.log(arr.toLocaleString())
+help = document.getElementById("previous").innerText
+alert(help)*/
